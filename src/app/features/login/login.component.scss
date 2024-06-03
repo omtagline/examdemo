@@ -1,0 +1,28 @@
+input {
+  color: white;
+  width: 250px;
+  height: 40px;
+}
+::placeholder {
+  color: white;
+  opacity: 0.5; /* Firefox */
+}
+
+.bg-main {
+  background-image: url(../../../assets/images/bg.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.singup-text {
+  &:hover {
+    cursor: pointer;
+  }
+}

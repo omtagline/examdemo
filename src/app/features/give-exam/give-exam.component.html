@@ -1,0 +1,51 @@
+<div class="container">
+  @if (examData) {
+
+  <div class="">
+    <form action="" #examForm="ngForm" (submit)="examSubmit($event, examForm)">
+      @for (data of examData.data; track $index ; ) {
+      <div class="border rounded-2 p-4 mt-2">
+        <h3>
+          <span class="pe-2"> {{ $index + 1 + "." }}</span
+          >{{ data.question }}
+        </h3>
+        <hr />
+        @for (opetion of data.options; track $index;) {
+        <div>
+          <input
+            ngModel
+            
+            type="radio"
+            [id]="data._id + $index"
+            [value]="opetion"
+            [name]="data._id"
+            class=""
+          />
+
+          <label [for]="data._id + $index" class="ps-2 fs-5">
+            {{ opetion }}
+          </label>
+        </div>
+        }
+      </div>
+
+      }
+      <div class="d-flex justify-content-end w-100">
+        <button
+          class="btn btn-dark mt-4 mb-4"
+          type="submit"
+          [disabled]="examForm.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+  @if (isLoading) {
+  <app-loader />
+  } }@else{
+  <div class="d-flex justify-content-center align-items-center vh-100 w-100">
+    <app-loader />
+  </div>
+  }
+</div>

@@ -1,0 +1,27 @@
+<div class="p-3 position-relative">
+  <h2 class="text-center">{{ data.subjectName }}</h2>
+  <h4 class="mb-2">Notes</h4>
+  <ul>
+    @for (data of data.notes; track $index) {
+    <li class="mt-1 mb-0">{{ data }}</li>
+    }
+  </ul>
+  @if (data.Result.length>0) {
+  <h4>Result</h4>
+  <ul>
+    @for (data of data.Result; track $index) {
+    <li class="mt-1 mb-0">Rank: {{ data.rank }}</li>
+    }
+  </ul>
+  }
+  <div class="w-full d-flex justify-content-end">
+    <button class="btn btn-dark" #giveexam (click)="giveExam(data._id)">
+      Give Exam
+    </button>
+  </div>
+  @if (isLoading) {
+  <div class="position-absolute top-50 end-50 loader">
+    <app-loader />
+  </div>
+  }
+</div>

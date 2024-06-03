@@ -1,0 +1,21 @@
+<div class="position-sticky top-0 z-2 bg-white">
+  <h1 class="text-center">All Exams</h1>
+</div>
+
+@for (data of examData ; track $index) {
+
+<div class="container">
+  <div class="card mt-2" (click)="openModal(data)">
+    <div class="card-header">
+      <span class="pe-1">{{ $index + 1 + ":" }}</span> {{ data.subjectName }}
+    </div>
+  </div>
+</div>
+
+} @if (loading) {
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <app-loader />
+</div>
+
+}
