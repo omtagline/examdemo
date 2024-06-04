@@ -1,4 +1,3 @@
-import { pluck } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import {
   FormBuilder,
@@ -6,23 +5,27 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { email } from '../../allregx';
 import { Router, RouterLink } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
+import { pluck } from 'rxjs';
+import { email } from '../../../core/constants/constants';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-singup',
   standalone: true,
   imports: [ReactiveFormsModule, RouterLink],
-  templateUrl: './singup.component.html',
-  styleUrl: './singup.component.scss',
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss',
 })
-export class SingupComponent {
-  public singUpForm!: FormGroup;
-  private fb = inject(FormBuilder);
-  public passMatch!: boolean;
-  private router = inject(Router);
+export class SignupComponent {
   private auth = inject(AuthService);
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+
+  public singUpForm!: FormGroup;
+
+  public passMatch!: boolean;
+
   constructor() {
     this.createForm();
   }
@@ -41,7 +44,6 @@ export class SingupComponent {
     const formvalues = this.singUpForm.value;
     delete formvalues.confirmPassword;
 
-    console.log('this.singUpForm :>> ', this.singUpForm);
     this.auth
       .singup(formvalues)
       .pipe(pluck('message'))
@@ -64,7 +66,6 @@ export class SingupComponent {
     } else {
       value = this.singUpForm.get('password')?.value;
     }
-
     if (e.target.value == value) {
       this.passMatch = true;
     } else {

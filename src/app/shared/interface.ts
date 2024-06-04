@@ -1,13 +1,7 @@
-export interface Login {
+export interface Response<T> {
   statusCode: number;
   message: string;
-  data: LoginData;
-}
-interface LoginData {
-  token: string;
-  name: string;
-  email: string;
-  role: string;
+  data: T;
 }
 
 export interface Allexams {
@@ -17,6 +11,7 @@ export interface Allexams {
   email: string;
   Result: ResultData[];
 }
+
 interface ResultData {
   _id: string;
   rank: number;
@@ -32,24 +27,24 @@ export type AllexamData = {
   userId?: string;
 };
 
-interface LoginData {
+export interface CommonResData {
   token: string;
   name: string;
   email: string;
   role: string;
 }
 
-export interface LoginRes {
-  statusCode: number;
-  message: string;
-  data: LoginData;
+export type PassswordRes = Omit<CommonResData, 'role'>;
+
+export interface singUpRes {
+  email: string;
+  password: string;
+  name: string;
+  role: string;
 }
 
-
-export interface  singUpRes{
-email:string,
-password:string,
-name:string,
-role:string
-}
-
+export type GetExamRes = {
+  options: string[];
+  _id: string;
+  question: string;
+};

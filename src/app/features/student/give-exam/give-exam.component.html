@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="">
+    <form
+      action=""
+      [formGroup]="examFormGroup"
+      (submit)="examSubmit($event, 'sdf')"
+    >
+      <!-- <div formArrayName="answerArray">
+        @for (data of examData; track data._id ;let idx = $index ) {
+        <div class="border rounded-2 p-4 mt-2 exam-card">
+          <h3>
+            <span class="pe-2"> {{ idx + 1 + "." }}</span
+            >{{ data.question }}<span class="error fs-5"> *</span>
+          </h3>
+          <hr />
+
+          @for (opetion of data.options; track $index; ) {
+          <div>
+            <input
+              [required]="$index == 0"
+              type="radio"
+              [id]="data._id + $index"
+              [value]="opetion"
+              [name]="data._id"
+            />
+            <label [for]="data._id + $index" class="ps-2 fs-5">
+              {{ opetion }}
+            </label>
+          </div>
+          }
+        </div>
+
+        }
+      </div> -->
+      <div formArrayName="answerArray">
+        <div
+          *ngFor="let question of getAnswerArray.controls; let i = index"
+          [formGroupName]="i"
+        >
+          {{ examData[i].question }}
+          <div *ngFor="let opetion of examData[i].options; let i = index">
+            <div>
+              <input
+                [required]="i == 0"
+                type="radio"
+                [value]="opetion"
+                formControlName="answer"
+              />
+              <span class="ps-2 fs-5">
+                {{ opetion }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end w-100">
+        <button
+          class="btn btn-success mt-4 mb-4"
+          type="submit"
+          [disabled]="examFormGroup.invalid"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

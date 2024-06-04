@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
-import { StudentService } from '../../core/services/student/student.service';
-import { LoaderComponent } from '../../shared/loader/loader.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ExamModalComponent } from '../../shared/exam-modal/exam-modal.component';
-import { AllexamData, Allexams } from '../../inter';
+import { StudentService } from '../../../core/services/student/student.service';
+
+import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { ExamModalComponent } from '../../../shared/exam-modal/exam-modal.component';
+import { AllexamData, Allexams } from '../../../shared/interface';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-allexams',
   standalone: true,
-  imports: [LoaderComponent],
+  imports: [NgbPagination, AsyncPipe],
   templateUrl: './allexams.component.html',
   styleUrl: './allexams.component.scss',
 })
@@ -20,16 +21,22 @@ export class AllexamsComponent {
 
   public loading!: boolean;
 
-  constructor() {
+  public page: number = 0;
+  public data$ = this.student.getAllExam();
+
+  ngOnInit(): void {
+    this.giveAllexam();
+  }
+
+  private giveAllexam(): void {
     this.loading = true;
     this.student.getAllExam().subscribe((data) => {
-      console.log(data.data);
       this.loading = false;
       this.examData = data.data;
     });
   }
 
-  public openModal(data: Allexams) {
+  public openModal(data: Allexams): void {
     let ref = this.modal.open(ExamModalComponent);
     ref.componentInstance.data = data;
   }

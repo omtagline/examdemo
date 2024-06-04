@@ -1,4 +1,3 @@
-import { LoaderComponent } from '../../shared/loader/loader.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GiveExamComponent } from './give-exam.component';
@@ -9,7 +8,7 @@ describe('GiveExamComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GiveExamComponent, LoaderComponent],
+      imports: [GiveExamComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GiveExamComponent);

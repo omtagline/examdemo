@@ -1,0 +1,19 @@
+.main {
+  height: 100vh;
+  padding: 50px;
+  .upper {
+    height: 30%;
+    border-radius: 10px;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+    background: url("https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/4k/original/12.jpg?3");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .image {
+    top: 30%;
+    left: 50%;
+
+    transform: translate(-50%, -30%);
+  }
+}

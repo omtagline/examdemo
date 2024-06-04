@@ -1,11 +1,15 @@
-@if (isAuth) {
+@if (isAuth()) {
 <app-sidebar />
-<div class="main-body">
-  <router-outlet />
-</div>
-}@else {
-<div class="">
-  <router-outlet />
-</div>
 }
-<!-- <div [ngClass]="{ 'main-body': !isAuth }"> -->
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>
+
+<div [ngClass]="{ 'main-body': isAuth() }">
+  <router-outlet />
+</div>

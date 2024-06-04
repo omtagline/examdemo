@@ -1,0 +1,25 @@
+<!-- <div class="position-sticky top-0 z-2 bg-white">
+  <h1 class="text-center">All Exams</h1>
+</div> -->
+
+@for (data of (data$ | async)?.data ; track $index) {
+
+<div class="container">
+  <div class="card mt-2">
+    <div class="card-header d-flex justify-content-between">
+      <p>
+        <span class="pe-1">{{ $index + 1 + ":" }}</span> {{ data.subjectName }}
+      </p>
+      <button class="btn btn-success" (click)="openModal(data)">
+        Give Exam
+      </button>
+    </div>
+  </div>
+</div>
+<!-- <ngb-pagination
+  [collectionSize]="570"
+  [(page)]="page"
+  [maxSize]="5"
+  [boundaryLinks]="true"
+/> -->
+} @if (loading) { }

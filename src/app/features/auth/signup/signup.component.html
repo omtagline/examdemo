@@ -30,7 +30,7 @@
       />
       @if ( singUpForm.get('name')?.invalid && singUpForm.get('name')?.touched)
       {
-      <span class="text-danger">Enter The Username </span>
+      <span class="error">Enter The Username </span>
       }
       <select
         name="role"
@@ -44,7 +44,7 @@
       </select>
       @if ( singUpForm.get('role')?.invalid && singUpForm.get('role')?.touched)
       {
-      <span class="text-danger">Select The Role</span>
+      <span class="error">Select The Role</span>
       }
 
       <input
@@ -57,9 +57,9 @@
       @if ( singUpForm.get('email')?.invalid &&
       singUpForm.get('email')?.touched) { @if
       (singUpForm.get('email')?.hasError("pattern")) {
-      <span class="text-danger">Enter The Valid Email</span>
+      <span class="error">Enter The Valid Email</span>
       }@else {
-      <span class="text-danger">Enter The Email </span>
+      <span class="error">Enter The Email </span>
       } }
 
       <input
@@ -74,10 +74,10 @@
       singUpForm.get('password')?.touched) { @if
       (singUpForm.get("password")?.errors &&
       singUpForm.get("password")?.hasError("minlength") ) {
-      <span class="text-danger"> Need More Than 6 Characters</span>
+      <span class="error"> Need More Than 6 Characters</span>
 
       } @else {
-      <span class="text-danger">Enter The password </span>
+      <span class="error">Enter The password </span>
 
       } }
 
@@ -89,15 +89,15 @@
         (change)="onPassChange($event, 'cpass')"
         class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
       />
-      @if (!passMatch && singUpForm.get("confirmPassword")?.touched) { @if (
-      singUpForm.get("confirmPassword")?.touched &&
-      singUpForm.get("confirmPassword")?.invalid) {
-      <span class="text-danger">Enter The Password </span>
+      @if(singUpForm.get('confirmPassword')?.touched &&
+      (singUpForm.get('password')?.value !==
+      singUpForm.get('confirmPassword')?.value) ){
 
-      }@else {
-
-      <span class="text-danger">Password Not Match</span>
-      } }
+      <span class="error">Password didn't match</span>
+      } @else if ( singUpForm.get("confirmPassword")?.invalid &&
+      singUpForm.get("confirmPassword")?.touched) {
+      <span class="error">Password Not Match</span>
+      }
       <div class="w-100 d-flex justify-content-center align-items-center">
         <button
           class="btn bg-white px-5 mt-5 text-black"

@@ -20,7 +20,7 @@
       </h1>
     </div>
 
-    <form action="" [formGroup]="loginForm" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <input
         id="email"
         type="text"
@@ -28,13 +28,11 @@
         class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-end-1"
         formControlName="email"
       />
-      @if ( loginForm.get('email')?.invalid && loginForm.get('email')?.touched)
-      { @if (loginForm.get('email')?.hasError("pattern")) {
-
-      <span class="text-danger">Enter The Valid Email</span>
-      }@else {
-
-      <span class="text-danger">Enter The Email </span>
+      @if (loginForm.get('email')?.touched && loginForm.get("email")?.errors) {
+      @if (loginForm.get('email')?.hasError("pattern")) {
+      <span class="error">Enter The Valid Email</span>
+      } @else {
+      <span class="error">Enter The Email </span>
       } }
       <input
         id="password"
@@ -44,15 +42,10 @@
         class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
       />
       @if ( loginForm.get('password')?.invalid &&
-      loginForm.get('password')?.touched) { @if
-      (loginForm.get("password")?.errors &&
-      loginForm.get("password")?.hasError("minlength") ) {
-      <span class="text-danger"> Need More Than 6 Characters</span>
+      loginForm.get('password')?.touched){
+      <span class="error">Enter The password </span>
 
-      } @else {
-      <span class="text-danger">Enter The password </span>
-
-      } }
+      }
 
       <div class="w-100 d-flex justify-content-center align-items-center">
         <button
@@ -66,7 +59,7 @@
         <p>
           Not Have An Account ?
           <span class="text-warning singup-text" [routerLink]="['/singup']">
-            Singup
+            Signup
           </span>
         </p>
       </div>
