@@ -2,6 +2,7 @@ export interface Response<T> {
   statusCode: number;
   message: string;
   data: T;
+  count?: number;
 }
 
 export interface Allexams {
@@ -48,3 +49,29 @@ export type GetExamRes = {
   _id: string;
   question: string;
 };
+
+export interface StudentResData {
+  email: string;
+  name: string;
+  status: String;
+  _id: String;
+  Result?: Result[];
+}
+
+export type StudentDetailRes = Required<Omit<StudentResData, 'status'>>;
+
+export interface Result {
+  _id: string;
+  studentAnswer: Required<StudentAnswer[]>;
+  rank: number;
+  subjectName: string;
+  score: number;
+  studentId: string;
+  resultStatus: string;
+  __v: number;
+}
+
+export interface StudentAnswer {
+  question: string;
+  answer: string;
+}

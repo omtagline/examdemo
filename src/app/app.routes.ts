@@ -62,11 +62,19 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'not-now',
+    path: 'student-detail/:id',
     canActivate: [authGuard],
     loadComponent: () =>
-      import('./features/teacher/all-student/all-student.component').then(
-        (el) => el.AllStudentComponent
-      ),
+      import(
+        './features/teacher/student-details/student-details.component'
+      ).then((el) => el.StudentDetailsComponent),
+  },
+  {
+    path: 'exams',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import(
+        './features/teacher/exam/exam.component'
+      ).then((el) => el.ExamComponent),
   },
 ];

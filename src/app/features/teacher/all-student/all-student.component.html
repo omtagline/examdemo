@@ -1,1 +1,51 @@
-<p>all-student works!</p>
+<div class="container">
+  <div class="m-3 w-50 d-flex align-content-center">
+    <label for="search" class="fs-5">Search:</label>
+    <input
+      type="text"
+      #search
+      id="search"
+      class="form-control ms-1"
+      placeholder="search"
+    />
+    <label for="filter" class="ms-3 fs-5">Status:</label>
+    <select name="filter" id="filter" class="form-select ms-1" #filter>
+      <option value="All">All</option>
+      <option value="verified">Verified</option>
+    </select>
+  </div>
+
+  <div class="mt-2">
+    @if (filter.value=="verified") {
+    <h2 class="text-muted fw-bold">Active Student List</h2>
+
+    }@else {
+
+    <h2 class="text-muted fw-bold">Student List</h2>
+    }
+    <p class="text-muted">Click To View Perticular Student Details</p>
+    <hr />
+  </div>
+
+  <div class="row">
+    @for (data of filtredData$|async; track $index) {
+    <div class="col-3 mt-3" [routerLink]="['/student-detail', data._id]">
+      <div
+        class="card"
+        [ngClass]="{
+          Pending: data.status == 'Pending',
+          active: data.status == 'Active'
+        }"
+      >
+        <div class="card-header">
+          <h6>{{ "Name : " + data.name }}</h6>
+        </div>
+        <div class="card-body">
+          <h6>{{ "Email: " + data.email }}</h6>
+          <h6>{{ data.status }}</h6>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

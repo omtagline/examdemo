@@ -1,0 +1,40 @@
+<div class="container">
+  @for (data of studentDetail; track $index) {
+  <div class="mt-5">
+    <div class="profile d-flex p-5 rounded-top">
+      <img
+        src="https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg"
+        class="img-fluid rounded"
+        alt="profile"
+        height="100"
+        width="100"
+      />
+      <div class="ms-3">
+        <h2>Name: {{ data.name }}</h2>
+        <h4>Email: {{ data.email }}</h4>
+      </div>
+    </div>
+    @if (data.Result.length>0) {
+    <div class="details p-2">
+      <div class="w-100 py-5">
+        <h4 class="ms-2">Total Attended Exam: {{ data.Result?.length }}</h4>
+      </div>
+      <h2 class="">Results:</h2>
+      <p class="text-muted">Click To View The Result Details</p>
+      <hr />
+      @for (result of data.Result; track $index) {
+      <div class="card m-2" (click)="showResult($index)">
+        <div class="card-header">
+          {{ result.subjectName }}
+        </div>
+        <div class="card-body">
+          <p class="fw-medium">Rank:{{ result.rank }}</p>
+          <p class="fw-medium">Score: {{ result.score }}</p>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+  }
+</div>

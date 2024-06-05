@@ -1,0 +1,12 @@
+<div class="pt-0">
+  <div class="w-100 mb-3 bg-dark shadow">
+    <h2 class="text-center text-white">Answers</h2>
+  </div>
+  @for (item of data; track $index) {
+  <ul class="list-unstyled px-4">
+    <li class="fs-5">Qestion:{{ item.question }}</li>
+    <li class="fs-6">answer:{{ item.answer }}</li>
+  </ul>
+  <hr />
+  }
+</div>

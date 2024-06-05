@@ -25,7 +25,7 @@ export class AllexamsComponent {
   public data$ = this.student.getAllExam();
 
   ngOnInit(): void {
-    this.giveAllexam();
+    // this.giveAllexam();
   }
 
   private giveAllexam(): void {

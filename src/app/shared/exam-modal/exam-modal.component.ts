@@ -15,12 +15,9 @@ import { Allexams } from '../interface';
 })
 export class ExamModalComponent {
   private active = inject(NgbActiveModal);
-
   private router = inject(Router);
 
   @Input() data!: Allexams;
-
-  public isLoading: boolean = false;
 
   public giveExam(id: string): void {
     this.router.navigate(['/give-exam', id]);

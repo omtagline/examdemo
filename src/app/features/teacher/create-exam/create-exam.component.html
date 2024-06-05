@@ -1,0 +1,86 @@
+<div class="row">
+  <form [formGroup]="ExamForm">
+    <div class="col-12">
+      <label for="naem">Subject Name</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        formControlName="subjectName"
+        placeholder="Subject Name"
+      />
+    </div>
+    <div formArrayName="question">
+      @for (item of getQuestionArray.controls; track $index) {
+      <div class="" [formGroupName]="$index">
+        <div class="col-12">
+          <div class="row align-items-center">
+            <div class="col-7">
+              <label for="question">Qestion:</label>
+              <input
+                type="text"
+                name="question"
+                id="question"
+                class="form-control"
+                placeholder="Qestion"
+                formControlName="question"
+              />
+            </div>
+            <div class="col-auto align-self-end">
+              <button class="btn-dark btn">Add</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <label for="answer">answer:</label>
+          <input
+            type="text"
+            name="answer"
+            class="form-control"
+            id="answer"
+            placeholder="Answers"
+            formControlName="answer"
+          />
+        </div>
+        <div formArrayName="options">
+          @for (item of getOptionArray($index).controls; track $index) {
+          <div class="col-12">
+            <label for="option">Option:</label>
+            <input
+              type="text"
+              id="opetion"
+              placeholder="Option"
+              class="form-control"
+              [formControlName]="$index"
+            />
+          </div>
+
+          }
+        </div>
+        <!-- //TODO: notes not working   -->
+        <div formArrayName="notes">
+          @for (i of getNotesArray($index).controls; track $index) {
+          <div class="col-12" [formGroupName]="$index">
+            <div class="row align-items-center">
+              <div class="col-7">
+                <label for="notes">notes:</label>
+                <input
+                  type="text"
+                  name="notes"
+                  id="notes"
+                  class="form-control"
+                  placeholder="notes"
+                />
+              </div>
+              <div class="col-auto align-self-end">
+                <button class="btn-dark btn">Add</button>
+              </div>
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+      }
+    </div>
+  </form>
+</div>
