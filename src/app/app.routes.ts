@@ -38,7 +38,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'Update-Password',
+    path: 'update-Password',
     canActivate: [authGuard],
     loadComponent: () =>
       import('./features/auth/change-password/change-password.component').then(
@@ -51,6 +51,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/student/profile/profile.component').then(
         (el) => el.ProfileComponent
+      ),
+  },
+  {
+    path: 'all-student',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/teacher/all-student/all-student.component').then(
+        (el) => el.AllStudentComponent
+      ),
+  },
+  {
+    path: 'not-now',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/teacher/all-student/all-student.component').then(
+        (el) => el.AllStudentComponent
       ),
   },
 ];

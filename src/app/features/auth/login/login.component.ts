@@ -25,14 +25,14 @@ export class LoginComponent {
 
   public loginForm!: FormGroup;
 
-  private isAuth!: boolean;
+  private role!: string;
 
   constructor() {
     this.createForm();
-    this.isAuth = this.auth.isAuth();
-    if (this.isAuth) {
-      this.router.navigate(['/all-exams']);
-    }
+    this.role = this.auth.role();
+    this.role == 'teacher'
+      ? this.router.navigate(['/all-student'])
+      : this.router.navigate(['/all-exams']);
   }
 
   private createForm(): void {
@@ -45,7 +45,6 @@ export class LoginComponent {
   public login(): void {
     this.auth
       .login(this.loginForm.value)
-      // .pipe()
       .subscribe((data: Response<CommonResData>) => {
         if (data.message == 'Invalid email') {
           alert('Invalid email');
@@ -57,7 +56,10 @@ export class LoginComponent {
           this.auth.isAuth.set(true);
           localStorage.setItem('token', data.data.token);
           localStorage.setItem('role', data.data.role);
-          this.router.navigate(['/all-exams']);
+
+          data.data.role == 'teacher'
+            ? this.router.navigate(['/all-student'])
+            : this.router.navigate(['/all-exams']);
         }
       });
   }

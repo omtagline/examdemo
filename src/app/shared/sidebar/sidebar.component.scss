@@ -1,3 +1,12 @@
 .sidebar {
   width: 280px;
 }
+
+.nav-link {
+  color: white;
+  background-color: grey;
+}
+.active {
+  color: rgb(255, 255, 255) !important;
+  background-color: rgb(0, 0, 0) !important;
+}

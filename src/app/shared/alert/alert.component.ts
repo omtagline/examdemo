@@ -13,7 +13,7 @@ export class AlertComponent {
 
   @Input() message!: string;
 
-  public closeModal() {
+  public closeModal(): void {
     this.active.close();
   }
 }

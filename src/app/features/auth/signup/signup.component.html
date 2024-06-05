@@ -20,7 +20,7 @@
       </h1>
     </div>
 
-    <form action="" [formGroup]="singUpForm" (ngSubmit)="singUp()">
+    <form [formGroup]="singUpForm" (ngSubmit)="singUp()">
       <input
         id="UserName"
         type="text"
@@ -64,7 +64,6 @@
 
       <input
         id="cpassword"
-        (change)="onPassChange($event, 'pass')"
         type="password"
         placeholder="password "
         formControlName="password"
@@ -86,7 +85,6 @@
         type="password"
         placeholder="Confirm Password"
         formControlName="confirmPassword"
-        (change)="onPassChange($event, 'cpass')"
         class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
       />
       @if(singUpForm.get('confirmPassword')?.touched &&
@@ -96,12 +94,16 @@
       <span class="error">Password didn't match</span>
       } @else if ( singUpForm.get("confirmPassword")?.invalid &&
       singUpForm.get("confirmPassword")?.touched) {
-      <span class="error">Password Not Match</span>
+      <span class="error">Enter The Password </span>
       }
       <div class="w-100 d-flex justify-content-center align-items-center">
         <button
           class="btn bg-white px-5 mt-5 text-black"
-          [disabled]="singUpForm.invalid || !passMatch"
+          [disabled]="
+            singUpForm.invalid ||
+            singUpForm.get('password')?.value !==
+              singUpForm.get('confirmPassword')?.value
+          "
         >
           Singup
         </button>

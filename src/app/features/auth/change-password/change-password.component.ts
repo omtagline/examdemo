@@ -21,7 +21,6 @@ export class ChangePasswordComponent {
   private router = inject(Router);
 
   public updateForm!: FormGroup;
-  public passwordMatch!: boolean;
 
   ngOnInit(): void {
     this.createFrom();
@@ -30,34 +29,19 @@ export class ChangePasswordComponent {
   public createFrom(): void {
     this.updateForm = this.pb.group({
       oldPassword: ['', [Validators.required]],
-      Password: ['', [Validators.required]],
+      Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['', [Validators.required]],
     });
   }
 
-  public passMatch(e: any, name: string) {
-    let value: String;
-
-    if (name == 'pass') {
-      value = this.updateForm.get('Password')?.value;
-    } else {
-      value = this.updateForm.get('ConfirmPassword')?.value;
-    }
-    if (e.target.value == value) {
-      this.passwordMatch = true;
-    } else {
-      this.passwordMatch = false;
-    }
-  }
-
-  public UpdateSubmit() {
+  public UpdateSubmit(): void {
     this.auth.updatePassWord(this.updateForm.value).subscribe((data) => {
-      if (data.message == 'Reset Password Successfully') {
+      if (data.statusCode == 200) {
         alert('Reset Password Successfully');
         this.router.navigate(['/all-exams']);
       } else if (data.message == 'Old password or new password are same') {
         alert('Old password or new password are same');
-      } else if (data.message == 'Invalid Old Password') {
+      } else if (data.statusCode == 500) {
         alert('Invalid Old Password');
       }
     });

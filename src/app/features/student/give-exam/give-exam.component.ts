@@ -24,7 +24,6 @@ import { CommonModule } from '@angular/common';
 export class GiveExamComponent {
   private student = inject(StudentService);
   private router = inject(Router);
-  private modal = inject(NgbModal);
   private fb = inject(FormBuilder);
 
   @Input() public id!: string;
@@ -32,7 +31,6 @@ export class GiveExamComponent {
   public examFormGroup!: FormGroup;
 
   public examData!: GetExamRes[];
-  // public answerArray: any[] = [];
 
   public isLoading!: boolean;
 
@@ -55,42 +53,37 @@ export class GiveExamComponent {
         this.router.navigate(['/all-exams']);
       }
       this.examData = data.data;
-
-      this.examData.forEach((p: GetExamRes) => {
-        (this.examFormGroup.get('answerArray') as FormArray).push(
-          this.FormArrayCreate(p)
-        );
-      });
+      if (this.examData) {
+        this.examData.forEach((p: GetExamRes) => {
+          (this.examFormGroup.get('answerArray') as FormArray).push(
+            this.FormArrayCreate(p)
+          );
+        });
+      }
     });
   }
 
-  private FormArrayCreate(p: GetExamRes): FormControl {
-    return this.fb.control({
+  private FormArrayCreate(p: GetExamRes): FormGroup {
+    return this.fb.group({
       question: p._id,
       answer: '',
     });
   }
 
-  public examSubmit($event: SubmitEvent, form: string): void {
-    console.log('this.examFormGrop :>> ', this.examFormGroup.value);
+  public examSubmit($event: SubmitEvent): void {
     $event.preventDefault();
 
-    // for (let key in form.value) {
-    //   this.answerArray.push({ question: key, answer: form.value[key] });
-    // }
+    this.student
+      .submitPaper(this.examFormGroup.get('answerArray')?.value, this.id)
+      .pipe(pluck('statusCode'))
+      .subscribe((statusCode) => {
+        console.log(statusCode);
+        if (statusCode == 200) {
+          alert('Exam Finished');
 
-    // this.student
-    //   .submitPaper(this.answerArray, this.id)
-    //   .pipe(pluck('message'))
-    //   .subscribe((data) => {
-    //     if (data == 'Exam finish') {
-    //       this.isLoading = false;
-    //       let alertRef = this.modal.open(AlertComponent);
-    //       alertRef.componentInstance.message = 'Exam Finished';
-
-    //       this.router.navigate(['/all-exams']);
-    //     }
-    //   });
+          this.router.navigate(['/all-exams']);
+        }
+      });
   }
 
   public get getAnswerArray(): FormArray {

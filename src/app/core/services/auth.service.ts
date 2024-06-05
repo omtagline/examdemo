@@ -24,6 +24,8 @@ export class AuthService {
 
   public isAuth = signal<boolean>(localStorage.getItem('token') ? true : false);
 
+  public role = signal<string>(localStorage.getItem('role') || '');
+
   public singup(value: singUpRes): Observable<singUpRes> {
     return this.http.post<singUpRes>(this.api + 'SignUp', value);
   }

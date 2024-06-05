@@ -1,54 +1,50 @@
+<div class="main position-relative">
+  <div class="upper"></div>
+  <div class="position-absolute image">
+    <img
+      src="https://img.freepik.com/premium-vector/people-saving-money_24908-51569.jpg"
+      alt=""
+      class="rounded rounded-4"
+      height="100"
+      width="100"
+    />
+  </div>
+  <div
+    class="h-75 d-flex flex-column down bg-dark text-white rounded-bottom-3 justify-content-evenly align-items-center"
+  >
+    <table>
+      <div class="fs-4 w-100 mt-5 py-5">
+        <tr>
+          <td>
+            <p class="text-center">Username:</p>
+          </td>
+          <td>
+            @if (!edit) {
 
-    <div class="main position-relative">
-        <div class="upper"></div>
-        <div class="position-absolute image">
-          <img
-            src="https://img.freepik.com/premium-vector/people-saving-money_24908-51569.jpg"
-            alt=""
-            class="rounded rounded-4"
-            height="100"
-            width="100"
-          />
-        </div>
-        <div
-          class="h-75 d-flex flex-column down bg-dark text-white rounded-bottom-3 justify-content-evenly align-items-center"
-        >
-          <div class="fs-4 w-100 mt-5 py-5">
-            <table>
-              <tr></tr>
-            </table>
-      
-              <p class="text-center">
-      
-              Username: @if (!edit) {
-      
-              {{ data.name }}
-              <button class="btn text-white fs-6" (click)="isEdit()">
-                  <i class="bi bi-pencil-square"></i>
-                </button>
-              } @else {
-                  <div class="">
-                      <input
-                      type="text"
-                      class=" text-black"
-                      #name
-                      [value]="data.name"
-                    />
-                  </div>
-                  <button class="btn  text-white fs-2" (click)="save( name.value)">
-                      <i class="bi bi-floppy"></i>
-                    </button>
-              }
-             
-            </p>
-            <p class="text-center ">
-              Account Type: {{ data.role }}
-            </p>
-          </div>
-          <div class="">
-            <button class="btn btn-danger" (click)="logout()">Logout</button>
-          </div>
-        </div>
+            {{ data.name }}
+            <button class="btn text-white fs-6" (click)="isEdit()">
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            } @else {
+            <div class="">
+              <input type="text" class="text-black form-control"  #name [value]="data.name" />
+            </div>
+
+            <td>
+              
+            </td>
+            <button class="btn text-white fs-5" (click)="save(name.value)">
+              <i class="bi bi-floppy"></i>
+            </button>
+            }
+          </td>
+        </tr>
+
+        <p class="text-center">Account Type: {{ data.role }}</p>
       </div>
-      
-
+    </table>
+    <div class="">
+      <button class="btn btn-danger" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>

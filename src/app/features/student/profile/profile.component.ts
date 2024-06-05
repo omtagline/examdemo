@@ -23,16 +23,11 @@ export class ProfileComponent {
   public isLoading: boolean = false;
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     this.getProfileDetails();
   }
 
   private getProfileDetails(): void {
-    this.isLoading = true;
     this.studentService.getProfile().subscribe((data) => {
-      this.isLoading = false;
-      console.log('data.data :>> ', data.data);
       this.data = data.data;
     });
   }
@@ -41,17 +36,14 @@ export class ProfileComponent {
     this.edit = !this.edit;
   }
 
-  public save(name: string) {
-    this.isLoading = true;
-    // console.log(name);
-    this.studentService.UpdateProfile({ name: name }).subscribe((data) => {
-      this.isLoading = false;
+  public save(name: string): void {
+    this.studentService.UpdateProfile({ name: name }).subscribe(() => {
       this.getProfileDetails();
       this.edit = false;
     });
   }
 
-  public logout() {
+  public logout(): void {
     this.auth.isAuth.set(false);
     localStorage.clear();
     this.router.navigate(['']);

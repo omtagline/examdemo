@@ -24,13 +24,11 @@ export class SignupComponent {
 
   public singUpForm!: FormGroup;
 
-  public passMatch!: boolean;
-
   constructor() {
     this.createForm();
   }
 
-  private createForm() {
+  private createForm(): void {
     this.singUpForm = this.fb.group({
       email: ['', [Validators.required, Validators.pattern(email)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -40,7 +38,7 @@ export class SignupComponent {
     });
   }
 
-  public singUp() {
+  public singUp(): void {
     const formvalues = this.singUpForm.value;
     delete formvalues.confirmPassword;
 
@@ -56,20 +54,5 @@ export class SignupComponent {
           alert('Email already exist');
         }
       });
-  }
-
-  public onPassChange(e: any, name: string) {
-    let value: String;
-    let element: String = 'password';
-    if (name == 'pass') {
-      value = this.singUpForm.get('confirmPassword')?.value;
-    } else {
-      value = this.singUpForm.get('password')?.value;
-    }
-    if (e.target.value == value) {
-      this.passMatch = true;
-    } else {
-      this.passMatch = false;
-    }
   }
 }
