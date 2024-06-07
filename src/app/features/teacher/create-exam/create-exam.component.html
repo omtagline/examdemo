@@ -15,11 +15,12 @@
       }
     </div>
     <div formArrayName="questions" class="p-2">
-      @for (item of getQuestionArray.controls; track item;let i=$index) {
-      <div class="" [formGroupName]="i">
+      @for (question of getQuestionArray.controls; track question;let i=$index ;
+      let last = $last) {
+      <div [formGroupName]="i">
         <div class="border p-2 mt-2 rounded">
           <div class="col-12">
-            <div class="row align-items-center">
+            <div class="row align-questions-center">
               <div class="col-10">
                 <label for="question">
                   <span class="m-2 fs-5 fw-bold">{{ i + 1 + "." }}</span>
@@ -34,13 +35,13 @@
                   formControlName="question"
                 />
               </div>
+              @if (last) {
               <div class="col-auto align-self-end">
-                <button class="btn-dark btn" type="button" (click)="add()">
+                <button class="btn-dark btn" type="button" (click)="add(i)">
                   <i class="bi bi-plus-lg"></i>
                 </button>
               </div>
-
-              @if (getQuestionArray.length>1) {
+              } @if (getQuestionArray.length>1) {
               <div class="col-auto align-self-end">
                 <button
                   class="btn-danger btn"
@@ -50,8 +51,8 @@
                   <i class="bi bi-trash-fill"></i>
                 </button>
               </div>
-              } @if ( item.get('question')?.invalid &&
-              item.get('question')?.touched ) {
+              } @if ( question.get('question')?.invalid &&
+              question.get('question')?.touched ) {
               <span class="error ps-3">question is Required</span>
               }
             </div>
@@ -60,14 +61,20 @@
           <div formArrayName="options" class="mb-3">
             <div class="row">
               <label for="option">Option:</label>
-              <!-- {{ getQuestionArray | json }} -->
-              @for (option of getOptionArray(i).controls; track $index) {
+
+              @for (option of
+              getQuestionArray.controls[i]?.get('options').controls; track
+              $index) {
+
               <div class="col-6 mt-2">
+                {{ option.value == question.get("answer").value }}
+                {{ option.value }}{{ question.get("answer").value }}
+
                 <div class="input-group">
                   <input
                     type="radio"
                     class="form-check me-2"
-                    [name]="i"
+                    [checked]="option.value == question.get('answer').value"
                     (change)="radioChange($index, i)"
                   />
                   <input
@@ -91,15 +98,12 @@
           </div>
         </div>
       </div>
-      @if (getQuestionArray.controls[i].get("question")?.invalid
-      &&getQuestionArray.controls[i].get("question")?.touched ) {
-      <span class="error"> Question Is Invalid</span>
-      } }
+      }
     </div>
     <div formArrayName="notes">
       @for (notes of getNotesArray.controls; track $index) {
       <div class="col-6">
-        <div class="row align-items-center">
+        <div class="row align-questions-center">
           <div class="col-6">
             <label for="notes">notes:</label>
             <input
@@ -137,23 +141,11 @@
     <div>
       <ng-toast [width]="300" />
     </div>
-    @if (id) {
-    <div class="mt-3 d-flex align-content-center justify-content-center col-3">
-      <button
-        class="btn btn-dark"
-        type="button"
-        (click)="examUpdate()"
-        [disabled]="examForm.invalid"
-      >
-        Update Exam
-      </button>
-    </div>
-    }@else {
+
     <div class="mt-3 d-flex align-content-center justify-content-center col-3">
       <button class="btn btn-dark" type="submit" [disabled]="examForm.invalid">
-        Create Exam
+        {{ id ? "Update Exam " : "Create Exam" }}
       </button>
     </div>
-    }
   </form>
 </div>
