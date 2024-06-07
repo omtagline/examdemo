@@ -73,8 +73,36 @@ export const routes: Routes = [
     path: 'exams',
     canActivate: [authGuard],
     loadComponent: () =>
-      import(
-        './features/teacher/exam/exam.component'
-      ).then((el) => el.ExamComponent),
+      import('./features/teacher/exam/exam.component').then(
+        (el) => el.ExamComponent
+      ),
+  },
+  {
+    path: 'create-exam',
+    loadComponent: () =>
+      import('./features/teacher/create-exam/create-exam.component').then(
+        (el) => el.CreateExamComponent
+      ),
+  },
+  {
+    path: 'update-exam/:id',
+    loadComponent: () =>
+      import('./features/teacher/create-exam/create-exam.component').then(
+        (el) => el.CreateExamComponent
+      ),
+  },
+  {
+    path: 'newPassword',
+    loadComponent: () =>
+      import('./features/auth/varifyotp/varifyotp.component').then(
+        (el) => el.VarifyotpComponent
+      ),
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () =>
+      import('./features/auth/forget-password/forget-password.component').then(
+        (el) => el.ForgetPasswordComponent
+      ),
   },
 ];

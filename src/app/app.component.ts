@@ -1,6 +1,6 @@
 import { Component, WritableSignal, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './features/auth/login/login.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 
@@ -18,7 +18,7 @@ import { NgxSpinner, NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
     LoginComponent,
     SidebarComponent,
     CommonModule,
-
+    NgbToastModule,
     NgxSpinnerModule,
   ],
   templateUrl: './app.component.html',

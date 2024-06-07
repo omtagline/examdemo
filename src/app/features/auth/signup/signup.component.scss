@@ -26,3 +26,43 @@ input {
     cursor: pointer;
   }
 }
+
+.forgot-main {
+  width: 70%;
+  height: 70%;
+  .main-sub-image {
+    background: linear-gradient(
+        107.36deg,
+        rgba(0, 0, 0, 0.7) -8.2%,
+        rgb(0, 0, 0) 109.89%
+      ),
+      url("https://plus.unsplash.com/premium_photo-1675342786681-e33a19414cfd?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  }
+  ::placeholder {
+    color: whitesmoke;
+  }
+  .text-warning {
+    font-size: 14px;
+  }
+
+  .btn:hover {
+    background-color: black !important;
+    color: white !important;
+  }
+}
+.sign-up {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+  transition: 0.5s;
+}
+.sign-up:hover {
+  background-color: rgba(255, 255, 255, 0);
+  border: 1px dotted white;
+
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px 10px 20px;
+}

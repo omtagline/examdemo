@@ -15,30 +15,42 @@
     </select>
   </div>
 
-  <div class="mt-2">
-    @if (filter.value=="verified") {
-    <h2 class="text-muted fw-bold">Active Student List</h2>
+  <div class="mt-2 d-flex justify-content-between">
+    <div>
+      @if (filter.value=="verified") {
+      <h2 class="text-muted fw-bold">Active Student List</h2>
 
-    }@else {
+      }@else {
 
-    <h2 class="text-muted fw-bold">Student List</h2>
-    }
-    <p class="text-muted">Click To View Perticular Student Details</p>
-    <hr />
+      <h2 class="text-muted fw-bold">Student List</h2>
+      }
+      <p class="text-muted">Click To View Perticular Student Details</p>
+    </div>
+    <div>
+      <div>
+        <i class="bi bi-circle-fill active"></i>
+        <span class="fw-medium"> --> Active Student</span>
+      </div>
+      <i class="bi bi-circle-fill Pending"></i>
+      <span class="fw-medium"> --> Pending Student</span>
+    </div>
   </div>
+  <hr />
 
   <div class="row">
-    @for (data of filtredData$|async; track $index) {
+    @for (data of filtredData; track $index) {
     <div class="col-3 mt-3" [routerLink]="['/student-detail', data._id]">
-      <div
-        class="card"
-        [ngClass]="{
-          Pending: data.status == 'Pending',
-          active: data.status == 'Active'
-        }"
-      >
-        <div class="card-header">
+      <div class="card h-100">
+        <div class="card-header d-flex justify-content-between">
           <h6>{{ "Name : " + data.name }}</h6>
+          <div
+            [ngClass]="{
+              Pending: data.status == 'Pending',
+              active: data.status == 'Active'
+            }"
+          >
+            <i class="bi bi-circle-fill"></i>
+          </div>
         </div>
         <div class="card-body">
           <h6>{{ "Email: " + data.email }}</h6>

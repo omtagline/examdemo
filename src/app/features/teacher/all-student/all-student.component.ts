@@ -34,8 +34,8 @@ export class AllStudentComponent {
   @ViewChild('search') private search!: ElementRef;
   @ViewChild('filter') private filter!: ElementRef;
 
-  public studentData$!: Observable<StudentResData[]>;
-  public filtredData$!: Observable<StudentResData[]>;
+  public studentData!: StudentResData[];
+  public filtredData!: StudentResData[];
 
   ngOnInit(): void {
     this.getStudentData();
@@ -57,13 +57,13 @@ export class AllStudentComponent {
     //     //  this.filtredData=
     //     // this.filtredData.push(data);
     //   });
-    // fromEvent(this.search.nativeElement, 'keyup')
-    //   .pipe(pluck('target', 'value'))
-    //   .subscribe((data: any) => {
-    //     this.filtredData = this.studentData.pipe(
-    //       map((i) => i.filter((res) => res.name.toLowerCase().includes(data)))
-    //     );
-    //   });
+    fromEvent(this.search.nativeElement, 'keyup')
+      .pipe(pluck('target', 'value'))
+      .subscribe((data: any) => {
+        this.filtredData = this.studentData.filter((res) =>
+          res.name.toLowerCase().includes(data)
+        );
+      });
     this.activeStatusFilter();
   }
 
@@ -72,16 +72,27 @@ export class AllStudentComponent {
       .pipe(pluck('target', 'value'))
       .subscribe((data) => {
         if (data == 'verified') {
-          this.filtredData$ = this.teacherService
+          this.teacherService
             .getVarifiedStudent()
-            .pipe(pluck('data'));
+            .pipe(pluck('data'))
+            .subscribe((data) => {
+              this.filtredData = data;
+            });
         } else {
-          this.filtredData$ = this.studentData$;
+          this.filtredData = this.studentData;
         }
       });
   }
 
   private getStudentData(): void {
-    this.filtredData$ = this.teacherService.getAllStudent().pipe(pluck('data'));
+    this.teacherService
+      .getAllStudent()
+      .pipe(pluck('data'))
+      .subscribe((data) => {
+        this.studentData = data;
+        this.filtredData = data;
+      });
+    console.log('object :>> ', this.studentData);
+    console.log('object :>> ', this.filtredData);
   }
 }

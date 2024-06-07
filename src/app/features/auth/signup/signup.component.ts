@@ -9,11 +9,12 @@ import { Router, RouterLink } from '@angular/router';
 import { pluck } from 'rxjs';
 import { email } from '../../../core/constants/constants';
 import { AuthService } from '../../../core/services/auth.service';
+import { SvgfinderPipe } from '../../../core/pipes/svgfinder.pipe';
 
 @Component({
   selector: 'app-singup',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink,SvgfinderPipe],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })

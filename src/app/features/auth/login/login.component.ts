@@ -1,6 +1,9 @@
 import { Component, inject } from '@angular/core';
 import {
+  AbstractControl,
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -10,11 +13,12 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
 import { pluck } from 'rxjs';
 import { CommonResData, Response } from '../../../shared/interface';
+import { SvgfinderPipe } from '../../../core/pipes/svgfinder.pipe';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, SvgfinderPipe],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
@@ -40,6 +44,10 @@ export class LoginComponent {
       email: ['', [Validators.required, Validators.pattern(email)]],
       password: ['', [Validators.required]],
     });
+  }
+
+  public get fControl(): { [key: string]: AbstractControl } {
+    return this.loginForm.controls;
   }
 
   public login(): void {

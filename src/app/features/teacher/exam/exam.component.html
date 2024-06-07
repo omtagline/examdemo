@@ -1,2 +1,41 @@
-<p>exam works!</p>
-<app-create-exam></app-create-exam>
+<!-- <app-create-exam></app-create-exam> -->
+
+<div class="container">
+  <div class="w-100 d-flex justify-content-end mt-5 mb-3">
+    <button class="btn btn-dark" (click)="openExam()">
+      <i class="bi bi-plus-lg"></i>
+      Exam
+    </button>
+  </div>
+  <table class="w-100 table-striped">
+    <tr class="border-2 mt-1 p-2 rounded d-flex justify-content-between">
+      <th>No</th>
+
+      <th>Subject Name</th>
+
+      <th>Action</th>
+    </tr>
+    @for (data of examData; track $index) {
+    <tr class="border-2 mt-1 p-2 rounded d-flex justify-content-between">
+      <td>{{ $index + 1 }}</td>
+      <td>{{ data.subjectName }}</td>
+      <!-- <td class="notes">
+        @for (item of data.notes; track $index) {
+        {{ item + "," }}
+        }
+      </td> -->
+      <td colspan="2">
+        <button class="btn btn-danger me-2" (click)="deleteRec(data._id)">
+          <i class="bi bi-trash-fill"></i>
+        </button>
+        <button class="btn btn-dark">
+          <i
+            class="bi bi-pencil-fill"
+            (click)="editRecord(data._id, data.subjectName)"
+          ></i>
+        </button>
+      </td>
+    </tr>
+    }
+  </table>
+</div>

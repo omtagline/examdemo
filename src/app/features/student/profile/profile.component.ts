@@ -4,11 +4,13 @@ import { CommonResData } from '../../../shared/interface';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/services/auth.service';
+import { map, pluck } from 'rxjs';
+import { AsyncPipe, CommonModule, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [AsyncPipe, JsonPipe, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
@@ -22,14 +24,16 @@ export class ProfileComponent {
   public edit: boolean = false;
   public isLoading: boolean = false;
 
+  data$ = this.studentService.getProfile().pipe(pluck('data'));
+
   ngOnInit(): void {
     this.getProfileDetails();
   }
 
   private getProfileDetails(): void {
-    this.studentService.getProfile().subscribe((data) => {
-      this.data = data.data;
-    });
+    // this.studentService.getProfile().subscribe((data) => {
+    //   this.data = data.data;
+    // });
   }
 
   public isEdit(): void {

@@ -1,3 +1,5 @@
+<!-- data$ :: {{data$ | async | json}} -->
+
 <div class="main position-relative">
   <div class="upper"></div>
   <div class="position-absolute image">
@@ -14,33 +16,40 @@
   >
     <table>
       <div class="fs-4 w-100 mt-5 py-5">
+        <ng-container *ngIf="data$ | async as Profile">
+
         <tr>
           <td>
             <p class="text-center">Username:</p>
           </td>
           <td>
-            @if (!edit) {
+              @if (!edit) {
 
-            {{ data.name }}
-            <button class="btn text-white fs-6" (click)="isEdit()">
-              <i class="bi bi-pencil-square"></i>
-            </button>
-            } @else {
-            <div class="">
-              <input type="text" class="text-black form-control"  #name [value]="data.name" />
-            </div>
+              {{ Profile.name }}
+              <button class="btn text-white fs-6" (click)="isEdit()">
+                <i class="bi bi-pencil-square"></i>
+              </button>
+              } @else {
+              <div class="">
+                <input
+                  type="text"
+                  class="text-black form-control"
+                  #name
+                  [value]="data.name"
+                />
+              </div>
 
-            <td>
-              
-            </td>
-            <button class="btn text-white fs-5" (click)="save(name.value)">
-              <i class="bi bi-floppy"></i>
-            </button>
-            }
+              <td></td>
+              <button class="btn text-white fs-5" (click)="save(name.value)">
+                <i class="bi bi-floppy"></i>
+              </button>
+              }
           </td>
         </tr>
 
-        <p class="text-center">Account Type: {{ data.role }}</p>
+        <p class="text-center">Account Type: {{ Profile.role }}</p>
+      </ng-container>
+
       </div>
     </table>
     <div class="">

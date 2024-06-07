@@ -44,4 +44,18 @@ export class AuthService {
       data
     );
   }
+
+  public verifyPassword(
+    token: string,
+    data: { Password: String; ConfirmPassword: String }
+  ): Observable<Response<CommonResData>> {
+    return this.http.post<Response<CommonResData>>(
+      this.api + `ForgotPassword/Verify??token=${token}`,
+      data
+    );
+  }
+
+  public forgotPass(email: string): Observable<Response<null>> {
+    return this.http.post<Response<null>>(this.api + 'ForgotPassword', email);
+  }
 }

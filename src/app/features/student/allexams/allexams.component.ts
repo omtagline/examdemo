@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { StudentService } from '../../../core/services/student/student.service';
 
+import { AsyncPipe } from '@angular/common';
 import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { ExamModalComponent } from '../../../shared/exam-modal/exam-modal.component';
-import { AllexamData, Allexams } from '../../../shared/interface';
-import { AsyncPipe } from '@angular/common';
+import { Allexams } from '../../../shared/interface';
 
 @Component({
   selector: 'app-allexams',

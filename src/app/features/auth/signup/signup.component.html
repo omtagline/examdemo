@@ -1,121 +1,134 @@
 <div
   class="vw-100 vh-100 d-flex flex-column justify-content-center align-items-center bg-dark text-white bg-main"
 >
-  <div class="d-flex flex-column justify-content-center glass p-4">
-    <div class="mb-3 align-self-center">
-      <h1 class="logo">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="80"
-          height="80"
-          fill="currentColor"
-          class="bi bi-shield-lock-fill"
-          viewBox="0 0 16 16"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"
-          />
-        </svg>
-      </h1>
-    </div>
+  <div class="forgot-main shadow d-flex">
+    <div
+      class="d-flex w-50 flex-column align-items-center ps-4 justify-content-between main-sub-image h-10 pt-5 rounded-start"
+    >
+      <div class="w-100">
+        <h1 class="mt-5 text-center">New here ?</h1>
+        <p class="w-100 text-center mt-3">Create an Accocunt to Explore !</p>
+      </div>
+      <div class="d-flex w-100 align-items-center mb-5 flex-column">
+        <p class="text-center mt-3">Alredy Have Account!</p>
 
-    <form [formGroup]="singUpForm" (ngSubmit)="singUp()">
-      <input
-        id="UserName"
-        type="text"
-        placeholder="Usernsame"
-        class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-end-1"
-        formControlName="name"
-      />
-      @if ( singUpForm.get('name')?.invalid && singUpForm.get('name')?.touched)
-      {
-      <span class="error">Enter The Username </span>
-      }
-      <select
-        name="role"
-        id="role"
-        formControlName="role"
-        class="form-select bg-transparent text-white border-1 mt-3 border-0 border-bottom"
-      >
-        <option value="" class="text-muted">select Role</option>
-        <option value="student">Student</option>
-        <option value="teacher">Teacher</option>
-      </select>
-      @if ( singUpForm.get('role')?.invalid && singUpForm.get('role')?.touched)
-      {
-      <span class="error">Select The Role</span>
-      }
-
-      <input
-        id="email"
-        type="text"
-        placeholder="Email"
-        class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-end-1"
-        formControlName="email"
-      />
-      @if ( singUpForm.get('email')?.invalid &&
-      singUpForm.get('email')?.touched) { @if
-      (singUpForm.get('email')?.hasError("pattern")) {
-      <span class="error">Enter The Valid Email</span>
-      }@else {
-      <span class="error">Enter The Email </span>
-      } }
-
-      <input
-        id="cpassword"
-        type="password"
-        placeholder="password "
-        formControlName="password"
-        class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
-      />
-      @if ( singUpForm.get('password')?.invalid &&
-      singUpForm.get('password')?.touched) { @if
-      (singUpForm.get("password")?.errors &&
-      singUpForm.get("password")?.hasError("minlength") ) {
-      <span class="error"> Need More Than 6 Characters</span>
-
-      } @else {
-      <span class="error">Enter The password </span>
-
-      } }
-
-      <input
-        id="password"
-        type="password"
-        placeholder="Confirm Password"
-        formControlName="confirmPassword"
-        class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
-      />
-      @if(singUpForm.get('confirmPassword')?.touched &&
-      (singUpForm.get('password')?.value !==
-      singUpForm.get('confirmPassword')?.value) ){
-
-      <span class="error">Password didn't match</span>
-      } @else if ( singUpForm.get("confirmPassword")?.invalid &&
-      singUpForm.get("confirmPassword")?.touched) {
-      <span class="error">Enter The Password </span>
-      }
-      <div class="w-100 d-flex justify-content-center align-items-center">
-        <button
-          class="btn bg-white px-5 mt-5 text-black"
-          [disabled]="
-            singUpForm.invalid ||
-            singUpForm.get('password')?.value !==
-              singUpForm.get('confirmPassword')?.value
-          "
-        >
-          Singup
+        <button class="sign-up border-warning text-warning" [routerLink]="['']">
+          Login
         </button>
       </div>
-      <div class="text-center mt-4">
-        <p>
-          Have An Account ?
-          <span class="text-warning singup-text" [routerLink]="['']">
-            Login
-          </span>
-        </p>
+    </div>
+
+    <div
+      class="d-flex flex-column justify-content-center glass p-4 w-50 align-items-center"
+    >
+      <div class="mb-3 align-self-center">
+        <h1 class="logo">
+          <i [innerHTML]="'authLogo' | svgfinder"></i>
+          <!-- <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="80"
+            height="80"
+            fill="currentColor"
+            class="bi bi-shield-lock-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8 0c-.69 0-1.843.265-2.928.56-1.11.3-2.229.655-2.887.87a1.54 1.54 0 0 0-1.044 1.262c-.596 4.477.787 7.795 2.465 9.99a11.8 11.8 0 0 0 2.517 2.453c.386.273.744.482 1.048.625.28.132.581.24.829.24s.548-.108.829-.24a7 7 0 0 0 1.048-.625 11.8 11.8 0 0 0 2.517-2.453c1.678-2.195 3.061-5.513 2.465-9.99a1.54 1.54 0 0 0-1.044-1.263 63 63 0 0 0-2.887-.87C9.843.266 8.69 0 8 0m0 5a1.5 1.5 0 0 1 .5 2.915l.385 1.99a.5.5 0 0 1-.491.595h-.788a.5.5 0 0 1-.49-.595l.384-1.99A1.5 1.5 0 0 1 8 5"
+            />
+          </svg> -->
+        </h1>
       </div>
-    </form>
+
+      <form [formGroup]="singUpForm" (ngSubmit)="singUp()">
+        <input
+          id="UserName"
+          type="text"
+          placeholder="Usernsame"
+          class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-end-1"
+          formControlName="name"
+        />
+        @if ( singUpForm.get('name')?.invalid &&
+        singUpForm.get('name')?.touched) {
+        <span class="error">Enter The Username </span>
+        }
+        <select
+          name="role"
+          id="role"
+          formControlName="role"
+          class="form-select bg-transparent text-white border-1 mt-3 border-0 border-bottom"
+        >
+          <option value="" class="text-muted">select Role</option>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+        @if ( singUpForm.get('role')?.invalid &&
+        singUpForm.get('role')?.touched) {
+        <span class="error">Select The Role</span>
+        }
+
+        <input
+          id="email"
+          type="text"
+          placeholder="Email"
+          class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-end-1"
+          formControlName="email"
+        />
+        @if ( singUpForm.get('email')?.invalid &&
+        singUpForm.get('email')?.touched) { @if
+        (singUpForm.get('email')?.hasError("pattern")) {
+        <span class="error">Enter The Valid Email</span>
+        }@else {
+        <span class="error">Enter The Email </span>
+        } }
+
+        <input
+          id="cpassword"
+          type="password"
+          placeholder="password "
+          formControlName="password"
+          class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
+        />
+        @if ( singUpForm.get('password')?.invalid &&
+        singUpForm.get('password')?.touched) { @if
+        (singUpForm.get("password")?.errors &&
+        singUpForm.get("password")?.hasError("minlength") ) {
+        <span class="error"> Need More Than 6 Characters</span>
+
+        } @else {
+        <span class="error">Enter The password </span>
+
+        } }
+
+        <input
+          id="password"
+          type="password"
+          placeholder="Confirm Password"
+          formControlName="confirmPassword"
+          class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
+        />
+        @if(singUpForm.get('confirmPassword')?.touched &&
+        (singUpForm.get('password')?.value !==
+        singUpForm.get('confirmPassword')?.value) ){
+
+        <span class="error">Password didn't match</span>
+        } @else if ( singUpForm.get("confirmPassword")?.invalid &&
+        singUpForm.get("confirmPassword")?.touched) {
+        <span class="error">Enter The Password </span>
+        }
+        <div class="w-100 d-flex justify-content-center align-items-center">
+          <button
+            class="btn bg-white px-5 mt-5 text-black"
+            [disabled]="
+              singUpForm.invalid ||
+              singUpForm.get('password')?.value !==
+                singUpForm.get('confirmPassword')?.value
+            "
+          >
+            Singup
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
