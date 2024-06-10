@@ -59,14 +59,22 @@ export class AllStudentComponent {
     //   });
     fromEvent(this.search.nativeElement, 'keyup')
       .pipe(pluck('target', 'value'))
-      .subscribe((data: any) => {
-        this.filtredData = this.studentData.filter((res) =>
-          res.name.toLowerCase().includes(data)
-        );
-      });
+      .subscribe(
+        (data: any) => {
+          this.filtredData = this.studentData.filter((res) =>
+            res.name.toLowerCase().includes(data)
+          );
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
     this.activeStatusFilter();
   }
 
+  public focus(): void {
+    this.search.nativeElement.focus();
+  }
   private activeStatusFilter(): void {
     fromEvent(this.filter.nativeElement, 'change')
       .pipe(pluck('target', 'value'))
@@ -75,9 +83,14 @@ export class AllStudentComponent {
           this.teacherService
             .getVarifiedStudent()
             .pipe(pluck('data'))
-            .subscribe((data) => {
-              this.filtredData = data;
-            });
+            .subscribe(
+              (data) => {
+                this.filtredData = data;
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
         } else {
           this.filtredData = this.studentData;
         }
@@ -88,11 +101,14 @@ export class AllStudentComponent {
     this.teacherService
       .getAllStudent()
       .pipe(pluck('data'))
-      .subscribe((data) => {
-        this.studentData = data;
-        this.filtredData = data;
-      });
-    console.log('object :>> ', this.studentData);
-    console.log('object :>> ', this.filtredData);
+      .subscribe(
+        (data) => {
+          this.studentData = data;
+          this.filtredData = data;
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
   }
 }

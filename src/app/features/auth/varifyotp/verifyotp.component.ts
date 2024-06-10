@@ -10,11 +10,11 @@ import { AuthService } from '../../../core/services/auth.service';
 import { SvgfinderPipe } from '../../../core/pipes/svgfinder.pipe';
 
 @Component({
-  selector: 'app-varifyotp',
+  selector: 'app-verifyotp',
   standalone: true,
   imports: [ReactiveFormsModule, SvgfinderPipe],
-  templateUrl: './varifyotp.component.html',
-  styleUrl: './varifyotp.component.scss',
+  templateUrl: './verifyotp.component.html',
+  styleUrl: './verifyotp.component.scss',
 })
 export class VarifyotpComponent {
   private route = inject(ActivatedRoute);
@@ -36,18 +36,21 @@ export class VarifyotpComponent {
 
   private createForm(): void {
     this.resetForm = this.fb.group({
-      Password: ['', Validators.required, Validators.minLength(6)],
+      Password: ['', [Validators.required, Validators.minLength(6)]],
       ConfirmPassword: ['', Validators.required],
     });
   }
 
   public changePass(): void {
-    this.auth
-      .verifyPassword(this.token, this.resetForm.value)
-      .subscribe((data) => {
+    this.auth.verifyPassword(this.token, this.resetForm.value).subscribe(
+      (data) => {
         if (data.statusCode == 200) {
           this.router.navigate(['']);
         }
-      });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

@@ -67,16 +67,28 @@
               $index) {
 
               <div class="col-6 mt-2">
-                {{ option.value == question.get("answer").value }}
-                {{ option.value }}{{ question.get("answer").value }}
+                <!-- {{ option.value == question.get("answer").value }}
+                {{ option.value }}{{ question.get("answer").value }} -->
 
                 <div class="input-group">
+                  @if (id) {
                   <input
                     type="radio"
                     class="form-check me-2"
-                    [checked]="option.value == question.get('answer').value"
+                    [checked]="
+                      option.value == question.get('answer').value && id
+                    "
                     (change)="radioChange($index, i)"
                   />
+                  }@else {
+                  <input
+                    type="radio"
+                    [name]="i"
+                    class="form-check me-2"
+                    (change)="radioChange($index, i)"
+                  />
+                  }
+
                   <input
                     type="text"
                     id="opetion"

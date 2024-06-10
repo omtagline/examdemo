@@ -5,6 +5,7 @@ import { AsyncPipe } from '@angular/common';
 import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { ExamModalComponent } from '../../../shared/exam-modal/exam-modal.component';
 import { Allexams } from '../../../shared/interface';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-allexams',
@@ -16,25 +17,13 @@ import { Allexams } from '../../../shared/interface';
 export class AllexamsComponent {
   private modal = inject(NgbModal);
   private student = inject(StudentService);
-
+  private router = inject(Router);
   public examData!: Allexams[];
 
   public loading!: boolean;
 
   public page: number = 0;
   public data$ = this.student.getAllExam();
-
-  ngOnInit(): void {
-    // this.giveAllexam();
-  }
-
-  private giveAllexam(): void {
-    this.loading = true;
-    this.student.getAllExam().subscribe((data) => {
-      this.loading = false;
-      this.examData = data.data;
-    });
-  }
 
   public openModal(data: Allexams): void {
     let ref = this.modal.open(ExamModalComponent);

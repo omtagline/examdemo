@@ -24,10 +24,15 @@ export class StudentDetailsComponent {
   }
 
   private getStudentDetails(): void {
-    this.teacherService.getStudentDetails(this.id).subscribe((data) => {
-      console.log('data.data :>> ', data);
-      this.studentDetail = data.data;
-    });
+    this.teacherService.getStudentDetails(this.id).subscribe(
+      (data) => {
+        console.log('data.data :>> ', data);
+        this.studentDetail = data.data;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   public showResult(index: number): void {

@@ -1,13 +1,18 @@
 <div class="container">
   <div class="m-3 w-50 d-flex align-content-center">
     <label for="search" class="fs-5">Search:</label>
-    <input
-      type="text"
-      #search
-      id="search"
-      class="form-control ms-1"
-      placeholder="search"
-    />
+    <div class="input-group position-relative">
+      <input
+        type="text"
+        #search
+        id="search"
+        (document:keydown.meta.k)="focus()"
+        class="form-control ms-1"
+        placeholder="search"
+      />
+      <span class="position-absolute end-0 mt-2 me-2 z-3">⌘ + K</span>
+    </div>
+
     <label for="filter" class="ms-3 fs-5">Status:</label>
     <select name="filter" id="filter" class="form-select ms-1" #filter>
       <option value="All">All</option>

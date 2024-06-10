@@ -46,21 +46,26 @@ export class GiveExamComponent {
   }
 
   public getExamPaper(): void {
-    this.student.getExamPaper(this.id).subscribe((data) => {
-      console.log(data);
-      if (data.message == 'You can not give exam again') {
-        alert('You can not give exam again');
-        this.router.navigate(['/all-exams']);
+    this.student.getExamPaper(this.id).subscribe(
+      (data) => {
+        console.log(data);
+        if (data.message == 'You can not give exam again') {
+          alert('You can not give exam again');
+          this.router.navigate(['/all-exams']);
+        }
+        this.examData = data.data;
+        if (this.examData) {
+          this.examData.forEach((p: GetExamRes) => {
+            (this.examFormGroup.get('answerArray') as FormArray).push(
+              this.FormArrayCreate(p)
+            );
+          });
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-      this.examData = data.data;
-      if (this.examData) {
-        this.examData.forEach((p: GetExamRes) => {
-          (this.examFormGroup.get('answerArray') as FormArray).push(
-            this.FormArrayCreate(p)
-          );
-        });
-      }
-    });
+    );
   }
 
   private FormArrayCreate(p: GetExamRes): FormGroup {
@@ -76,14 +81,19 @@ export class GiveExamComponent {
     this.student
       .submitPaper(this.examFormGroup.get('answerArray')?.value, this.id)
       .pipe(pluck('statusCode'))
-      .subscribe((statusCode) => {
-        console.log(statusCode);
-        if (statusCode == 200) {
-          alert('Exam Finished');
+      .subscribe(
+        (statusCode) => {
+          console.log(statusCode);
+          if (statusCode == 200) {
+            alert('Exam Finished');
 
-          this.router.navigate(['/all-exams']);
+            this.router.navigate(['/all-exams']);
+          }
+        },
+        (err) => {
+          console.log(err);
         }
-      });
+      );
   }
 
   public get getAnswerArray(): FormArray {

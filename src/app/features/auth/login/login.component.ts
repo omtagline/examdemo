@@ -51,9 +51,8 @@ export class LoginComponent {
   }
 
   public login(): void {
-    this.auth
-      .login(this.loginForm.value)
-      .subscribe((data: Response<CommonResData>) => {
+    this.auth.login(this.loginForm.value).subscribe(
+      (data: Response<CommonResData>) => {
         if (data.message == 'Invalid email') {
           alert('Invalid email');
         } else if (data.message == 'Please Verify Email') {
@@ -69,6 +68,10 @@ export class LoginComponent {
             ? this.router.navigate(['/all-student'])
             : this.router.navigate(['/all-exams']);
         }
-      });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }

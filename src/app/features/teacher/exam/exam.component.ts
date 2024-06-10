@@ -31,13 +31,18 @@ export class ExamComponent {
   // }
 
   private getAllExamData(): void {
-    this.teacherService.getAllExamDetails().subscribe((data) => {
-      if (data.data.length < 0) {
-        this.modal.open(CreateExamComponent);
+    this.teacherService.getAllExamDetails().subscribe(
+      (data) => {
+        if (data.data.length < 0) {
+          this.modal.open(CreateExamComponent);
+        }
+        this.examData = data.data;
+        console.log(this.examData);
+      },
+      (err) => {
+        console.log(err);
       }
-      this.examData = data.data;
-      console.log(this.examData);
-    });
+    );
   }
 
   public openExam(): void {

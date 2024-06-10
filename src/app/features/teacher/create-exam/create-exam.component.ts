@@ -13,18 +13,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CharTostrPipe } from '../../../core/pipes/char-tostr.pipe';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
-import { AttributesDirective } from '../../../core/Directive/attributes.directive';
 
 @Component({
   selector: 'app-create-exam',
   standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    NgToastModule,
-    CharTostrPipe,
-    CommonModule,
-    AttributesDirective,
-  ],
+  imports: [ReactiveFormsModule, NgToastModule, CharTostrPipe, CommonModule],
   templateUrl: './create-exam.component.html',
   styleUrl: './create-exam.component.scss',
 })
@@ -62,10 +55,15 @@ export class CreateExamComponent {
       this.add(i);
       i++;
     }
-    this.teacherService.getExamDetails(this.id).subscribe((data) => {
-      this.examForm.patchValue({ ...data.data, subjectName: subjectName });
-      console.log(this.examForm.value);
-    });
+    this.teacherService.getExamDetails(this.id).subscribe(
+      (data) => {
+        this.examForm.patchValue({ ...data.data, subjectName: subjectName });
+        console.log(this.examForm.value);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   private createForm(val: FormGroup): void {
@@ -79,7 +77,7 @@ export class CreateExamComponent {
   private controlCreator(): FormGroup {
     return this.fb.group({
       question: ['', [Validators.required]],
-      answer: ['', Validators.required],
+      answer: ['', [Validators.required]],
       options: this.fb.array([
         ['', Validators.required],
         ['', Validators.required],
@@ -90,9 +88,12 @@ export class CreateExamComponent {
   }
 
   public add(i: number): void {
-    if (this.examForm.invalid && !this.id) {
-      this.getQuestionArray.controls[i].markAllAsTouched();
-      return;
+    if (!this.id) {
+      console.log('object :>> ', this.getQuestionArray.controls[i].value);
+      if (this.getQuestionArray.controls[i].invalid && !this.id) {
+        this.getQuestionArray.controls[i].markAllAsTouched();
+        return;
+      }
     }
     if (this.getQuestionArray.length < 15)
       this.getQuestionArray.push(this.controlCreator());
@@ -149,7 +150,6 @@ export class CreateExamComponent {
   //     ?.patchValue(questionArray[question].controls[option].value);
   // }
   public getOptionArray(index: number): FormArray {
-    console.log('object :>> ', this.getQuestionArray);
     return <FormArray>this.getQuestionArray.controls[index]?.get('options');
   }
   public radioChange(option: number, question: number) {

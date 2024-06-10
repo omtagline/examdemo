@@ -13,7 +13,7 @@ import { SvgfinderPipe } from '../../../core/pipes/svgfinder.pipe';
 @Component({
   selector: 'app-forget-password',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink,SvgfinderPipe],
+  imports: [ReactiveFormsModule, RouterLink, SvgfinderPipe],
   templateUrl: './forget-password.component.html',
   styleUrl: './forget-password.component.scss',
 })
@@ -21,7 +21,7 @@ export class ForgetPasswordComponent {
   private fb = inject(FormBuilder);
   private authS = inject(AuthService);
   private router = inject(Router);
-  
+
   public form!: FormGroup;
 
   ngOnInit(): void {
@@ -35,13 +35,18 @@ export class ForgetPasswordComponent {
   }
 
   public frogot(): void {
-    this.authS.forgotPass(this.form.value).subscribe((data) => {
-      if (data.statusCode === 200) {
-        alert('Email Sent Successful');
-        this.router.navigate(['']);
-      } else if (data.statusCode == 500) {
-        alert('User Not Founded');
+    this.authS.forgotPass(this.form.value).subscribe(
+      (data) => {
+        if (data.statusCode === 200) {
+          alert('Email Sent Successful');
+          this.router.navigate(['']);
+        } else if (data.statusCode == 500) {
+          alert('User Not Founded');
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-    });
+    );
   }
 }

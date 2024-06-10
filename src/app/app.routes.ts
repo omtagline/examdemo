@@ -94,7 +94,7 @@ export const routes: Routes = [
   {
     path: 'newPassword',
     loadComponent: () =>
-      import('./features/auth/varifyotp/varifyotp.component').then(
+      import('./features/auth/varifyotp/verifyotp.component').then(
         (el) => el.VarifyotpComponent
       ),
   },

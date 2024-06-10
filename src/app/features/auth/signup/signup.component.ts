@@ -54,6 +54,9 @@ export class SignupComponent {
         } else if (data == 'Email already exist') {
           alert('Email already exist');
         }
+      },
+      (err) => {
+        console.log(err);
       });
   }
 }

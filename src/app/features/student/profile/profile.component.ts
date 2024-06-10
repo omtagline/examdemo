@@ -24,16 +24,16 @@ export class ProfileComponent {
   public edit: boolean = false;
   public isLoading: boolean = false;
 
-  data$ = this.studentService.getProfile().pipe(pluck('data'));
+  // data$ = this.studentService.getProfile().pipe(pluck('data'));
 
   ngOnInit(): void {
     this.getProfileDetails();
   }
 
   private getProfileDetails(): void {
-    // this.studentService.getProfile().subscribe((data) => {
-    //   this.data = data.data;
-    // });
+    this.studentService.getProfile().subscribe((data) => {
+      this.data = data.data;
+    });
   }
 
   public isEdit(): void {
@@ -41,10 +41,15 @@ export class ProfileComponent {
   }
 
   public save(name: string): void {
-    this.studentService.UpdateProfile({ name: name }).subscribe(() => {
-      this.getProfileDetails();
-      this.edit = false;
-    });
+    this.studentService.UpdateProfile({ name: name }).subscribe(
+      () => {
+        this.getProfileDetails();
+        this.edit = false;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   public logout(): void {

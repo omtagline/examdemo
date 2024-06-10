@@ -29,13 +29,11 @@
         formControlName="Password"
         class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
       />
-      @if ( resetForm.get('password')?.invalid &&
-      resetForm.get('password')?.touched) { @if
-      (resetForm.get("password")?.errors &&
-      resetForm.get("password")?.hasError("minlength") ) {
+      @if ( resetForm.get('Password')?.touched) { @if (
+      resetForm.get("Password")?.hasError('minlength') ) {
       <span class="error"> Need More Than 6 Characters</span>
 
-      } @else {
+      } @else if(resetForm.get('Password')?.invalid) {
       <span class="error">Enter The password </span>
 
       } }
@@ -47,9 +45,9 @@
         formControlName="ConfirmPassword"
         class="border-0 border-bottom mt-3 border-white form-control bg-transparent text-white rounded-1"
       />
-      @if(resetForm.get('confirmPassword')?.touched &&
-      (resetForm.get('password')?.value !==
-      resetForm.get('confirmPassword')?.value) ){
+      @if(resetForm.get('ConfirmPassword')?.touched &&
+      (resetForm.get('Password')?.value !==
+      resetForm.get('ConfirmPassword')?.value) ){
 
       <span class="error">Password didn't match</span>
       } @else if ( resetForm.get("confirmPassword")?.invalid &&

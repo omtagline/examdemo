@@ -35,15 +35,20 @@ export class ChangePasswordComponent {
   }
 
   public UpdateSubmit(): void {
-    this.auth.updatePassWord(this.updateForm.value).subscribe((data) => {
-      if (data.statusCode == 200) {
-        alert('Reset Password Successfully');
-        this.router.navigate(['/all-exams']);
-      } else if (data.message == 'Old password or new password are same') {
-        alert('Old password or new password are same');
-      } else if (data.statusCode == 500) {
-        alert('Invalid Old Password');
+    this.auth.updatePassWord(this.updateForm.value).subscribe(
+      (data) => {
+        if (data.statusCode == 200) {
+          alert('Reset Password Successfully');
+          this.router.navigate(['/all-exams']);
+        } else if (data.message == 'Old password or new password are same') {
+          alert('Old password or new password are same');
+        } else if (data.statusCode == 500) {
+          alert('Invalid Old Password');
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-    });
+    );
   }
 }

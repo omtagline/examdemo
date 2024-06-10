@@ -10,12 +10,13 @@ import {
   BrowserAnimationsModule,
   provideAnimations,
 } from '@angular/platform-browser/animations';
+import { errorInterceptor } from './core/interceptor/error-interceptor.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(BrowserModule, NgxSpinnerModule.forRoot()),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideHttpClient(withInterceptors([tokenInterceptor, errorInterceptor])),
     provideAnimations(),
   ],
 };
